@@ -8,7 +8,7 @@ class MySQLConnection:
         self.host = 'localhost'
         self.port = 3306
         self.db = 'discorddb'
-        self.cursorclass = pymysql.cursors.DictCursor
+        self.cursor_class = pymysql.cursors.DictCursor
         self.autoCommit = True
         self.connection = None
 
@@ -16,7 +16,7 @@ class MySQLConnection:
         try:
             print("Attempting to connect to database...")
             self.connection = pymysql.connect(user=self.user, password=self.password, host=self.host, port=self.port,
-                                              db=self.db, cursorclass=self.cursorclass, autocommit=self.autoCommit)
+                                              db=self.db, cursorclass=self.cursor_class, autocommit=self.autoCommit)
         except pymysql.Error as err:
             print(err)
 

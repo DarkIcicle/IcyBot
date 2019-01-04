@@ -17,7 +17,7 @@ class Eval:
         except Exception as e:
             err_embed = discord.Embed(color=discord.Colour.red(), title="Something went wrong!")
             err_embed.add_field(name="Here is the error I got", value="{}".format(e))
-            return await ctx.channel.send(err_embed)
+            return await ctx.channel.send(err_embed, delete_after=4)
 
         e_embed = discord.Embed(title="Evaluation",color=discord.Colour.green())
         e_embed.set_footer(text="IcyBot", icon_url=self.bot.user.avatar_url)

@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from TestDiscordBot.bot import con
-from TestDiscordBot.Utils.error_embeds import no_connection
+from IcyBot.Utils.error_embeds import EmbedBuilder
+from IcyBot.bot import con
 
 
 class Coins:
@@ -13,7 +13,7 @@ class Coins:
         if not isinstance(ctx.channel, discord.abc.GuildChannel):
             return
         if con.connection is None:
-            return await ctx.channel.send(embed=no_connection())
+            return await ctx.channel.send(embed=EmbedBuilder().no_connection(), delete_after=4)
 
         if user is None:
             user = ctx.author

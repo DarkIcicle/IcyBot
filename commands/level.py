@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from TestDiscordBot.TestBot import con
-from TestDiscordBot.Utils.error_embeds import no_connection
+from IcyBot.bot import con
+from IcyBot.Utils.error_embeds import EmbedBuilder
 
 
 class Level:
@@ -11,7 +11,7 @@ class Level:
     @commands.command()
     async def level(self, ctx, user: discord.Member=None):
         if con.connection is None:
-            return await ctx.channel.send(embed=no_connection())
+            return await ctx.channel.send(embed=EmbedBuilder().no_connection(), delete_after=3)
 
         if not isinstance(ctx.channel, discord.abc.GuildChannel):
             return

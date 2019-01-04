@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
 import asyncio
-from TestDiscordBot.bot import con
-from TestDiscordBot.Utils.error_embeds import no_connection
+from IcyBot.Utils.error_embeds import EmbedBuilder
+from IcyBot.bot import con
 
 
 class Pay:
@@ -10,31 +10,25 @@ class Pay:
         self.bot = bot
 
     @commands.command()
-    async def pay(self, ctx, user: discord.User=None):
+    async def pay(self, ctx, user: discord.User = None):
         if not isinstance(ctx.channel, discord.abc.GuildChannel):
             return
         if con.connection is None:
-            return await ctx.channel.send(embed=no_connection())
+            return await ctx.channel.send(embed=EmbedBuilder().no_connection(), delete_after=4)
 
         payer = ctx.message.author
         try:
             amount = ctx.message.content.split(" ")[2]
             receiver = ctx.message.mentions
         except Exception:
-            to_self = discord.Embed(description="Please ensure that you follow the correct format!", color=discord.Color(0).red())
-            bot_message = await ctx.channel.send(embed=to_self)
-            await asyncio.sleep(2)
-            await bot_message.delete()
+            to_self = discord.Embed(description="Please ensure that you follow the correct format!", color=discord.Colour.red())
+            return await ctx.channel.send(embed=to_self, delete_after=4)
         if user == payer:
-            to_self = discord.Embed(description="You cannot send coins to yourself!", color=discord.Color(0).red())
-            bot_message = await ctx.channel.send(embed=to_self)
-            await asyncio.sleep(2)
-            await bot_message.delete()
+            to_self = discord.Embed(description="You cannot send coins to yourself!", color=discord.Colour.red())
+            return await ctx.channel.send(embed=to_self, delete_after=4)
         elif con.get_coins(payer) <= amount:
-            not_enough = discord.Embed(description="You don't have enough coins!", color=discord.Color(0).red())
-            bot_message = await ctx.channel.send(embed=not_enough)
-            await asyncio.sleep(2)
-            await bot_message.delete()
+            not_enough = discord.Embed(description="You don't have enough coins!", color=discord.Colour.red())
+            return await ctx.channel.send(embed=not_enough, delete_after=4)
         else:
             return
 

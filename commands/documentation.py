@@ -23,12 +23,12 @@ class Documentation:
 
     @commands.command()
     async def dpy(self,ctx):
-        '''
+        """"
         Basic doc retrieval, very messy at the moment and broken/incomplete
 
         :param ctx: The context for the trigger event
         :return: Error embed if none, otherwise the doc embed
-        '''
+        """
         to_find = ctx.message.content[5:].split('#')
 
         c_find = to_find[0].lower()
@@ -53,7 +53,6 @@ class Documentation:
             doc_embed.description = overview
             print(doc_embed.description)
         return await ctx.channel.send(embed=doc_embed)
-
 
 def setup(bot):
     bot.add_cog(Documentation(bot))

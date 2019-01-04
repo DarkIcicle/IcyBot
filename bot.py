@@ -2,7 +2,7 @@ import asyncio
 import json
 import random
 import os
-from TestDiscordBot.Utils.sql_connection import MySQLConnection
+from IcyBot.Utils.sql_connection import MySQLConnection
 
 import discord
 from discord.ext import commands
@@ -43,7 +43,7 @@ async def on_message(message):
         con.update_coins(discord_id, coins_earned)
         coin_embed = discord.Embed(title="Coins", description="{} has found ".format(message.author.mention) + str(coins_earned) + " coins!",
                                    color=0xFFB200)
-        await message.channel.send(embed=coin_embed)
+        await message.channel.send(embed=coin_embed, delete_after=4)
 
     experience = random.randint(1, 15)
     current_exp = con.get_experience(discord_id)
